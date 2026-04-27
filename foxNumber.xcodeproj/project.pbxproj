@@ -41,7 +41,7 @@
 		5EF3910A54C38B130AB6B55A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		849FA5DE49B974A7FA633110 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B06311AFE5FDF9648545083C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		B47FA1BECA3C031988FDD3F3 /* foxNumber.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = foxNumber.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B47FA1BECA3C031988FDD3F3 /* foxNumber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = foxNumber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C869D6D9229A034949BC0F7C /* foxNumberWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = foxNumberWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC5A80E8D98EC8B75B747279 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		CC8BA1A4F33AF628788FCEA0 /* foxNumberApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = foxNumberApp.swift; sourceTree = "<group>"; };
@@ -211,9 +211,6 @@
 					33643DADB76A171CD3C5787E = {
 						DevelopmentTeam = "";
 					};
-					AA449F37455F45744B4A4FDD = {
-						DevelopmentTeam = "";
-					};
 				};
 			};
 			buildConfigurationList = 5786494DF3771893B0C20C3B /* Build configuration list for PBXProject "foxNumber" */;
@@ -346,6 +343,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 9CYR63MXFS;
 				INFOPLIST_FILE = Sources/foxNumber/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -362,6 +360,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 9CYR63MXFS;
 				INFOPLIST_FILE = Sources/foxNumber/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
