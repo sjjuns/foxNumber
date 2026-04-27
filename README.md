@@ -41,14 +41,14 @@ xcodebuild -project foxNumber.xcodeproj \
 
 ## 변경 이력
 
-### 2026-04-27 [sjjuns : [f0cbe7d](https://github.com/sjjuns/foxNumber/commit/f0cbe7d)]
-- xcodegen 프로젝트 파일 업데이트 (위젯 타겟 및 신규 소스 파일 반영)
+* 2026-04-27 [sjjuns : [f0cbe7d](https://github.com/sjjuns/foxNumber/commit/f0cbe7d)]
+  * xcodegen 프로젝트 파일 업데이트 (위젯 타겟 및 신규 소스 파일 반영)
 
-### 2026-04-27 [sjjuns : [88def75](https://github.com/sjjuns/foxNumber/commit/88def75)]
-- 프로젝트 초기 구현
-  - 번호 생성/저장 (Phase 1): SwiftUI + SwiftData, 볼 애니메이션
-  - 당첨 확인 (Phase 2): 동행복권 API 연동, 결과 시트 + 컨페티 효과
-  - 통계 (Phase 3): 실제 회차 데이터 병렬 패치, Swift Charts 시각화
-  - 홈 화면 위젯 (Phase 3): WidgetKit Small/Medium
-  - 앱 아이콘: 다크 럭키 골드 볼 디자인
-  - CLAUDE.md 문서화
+* 2026-04-27 [sjjuns : [88def75](https://github.com/sjjuns/foxNumber/commit/88def75)]
+  * 프로젝트 초기 구현
+    * 번호 생성/저장 (Phase 1): SwiftUI + SwiftData, 볼 애니메이션
+    * 당첨 확인 (Phase 2): 동행복권 API 연동, 결과 시트 + 컨페티 효과
+    * 통계 (Phase 3): 실제 회차 데이터 병렬 패치, Swift Charts 시각화
+    * 홈 화면 위젯 (Phase 3): WidgetKit Small/Medium
+    * 앱 아이콘: 다크 럭키 골드 볼 디자인
+    * CLAUDE.md 문서화
