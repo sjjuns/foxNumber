@@ -1,0 +1,505 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		116D27788A9A952593B2EB67 /* LottoBallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03254964B81991A444436D4 /* LottoBallView.swift */; };
+		1E175E937AF4E686999D6EA6 /* WinningNumberCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D021A254224710D29D996A /* WinningNumberCache.swift */; };
+		3F794C91C2EF4E8CE21654F4 /* StatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE2D26C6127489B1500C400 /* StatsViewModel.swift */; };
+		4190BC6DEEC0C69000F18779 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F0905794BB7AB09981F9ED /* SettingsView.swift */; };
+		4E8A33C53319D21E772DF198 /* LottoNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01409AFF45C8B24FCD1472D /* LottoNumber.swift */; };
+		5C15DC3BEF6B70EB9E620B16 /* foxNumberWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C342FCB404E65F64A6B17BA /* foxNumberWidget.swift */; };
+		6FB00A4A4133D8C911445ACA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EF3910A54C38B130AB6B55A /* Assets.xcassets */; };
+		89BD4D1BF2CA8065AC0176E3 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3D71C584DAEFE2D9BF3F82 /* DesignSystem.swift */; };
+		8ABED9BB537920AB65A7C6BB /* CheckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133D3BE0075AD0C5C11D929F /* CheckViewModel.swift */; };
+		A39DE9441B000D6EAC3BBDB5 /* GenerateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2282C0292C347E272D1EFF63 /* GenerateViewModel.swift */; };
+		BA6EFFFC13C9E59A83EF7D9F /* MyNumbersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C6BFFB8012AFB6443757F3 /* MyNumbersView.swift */; };
+		BE58EE0D55AE0B62539CA7E3 /* GenerateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076038529323936CBCAEDF26 /* GenerateView.swift */; };
+		BFFC4F42A346C3F9F598B71C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B23FC734A9300214E5FAEDC /* ContentView.swift */; };
+		CAE802C5CEBEAF7D0A6CF53D /* foxNumberApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8BA1A4F33AF628788FCEA0 /* foxNumberApp.swift */; };
+		D71C77FB4D90670DA7B85785 /* WinningResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0037B6424BF1FC62A126C /* WinningResultView.swift */; };
+		E8377B7A5534AE6ED43A1C9F /* LottoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563851B85104D3B12917C81C /* LottoService.swift */; };
+		F5FB1D80D250274F9443650A /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5A80E8D98EC8B75B747279 /* StatsView.swift */; };
+		F67C9396A7FDE927AFA3C9A1 /* NumberStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA0D32CF21D0795EEDCBD34 /* NumberStat.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		00F0905794BB7AB09981F9ED /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		076038529323936CBCAEDF26 /* GenerateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateView.swift; sourceTree = "<group>"; };
+		09C6BFFB8012AFB6443757F3 /* MyNumbersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNumbersView.swift; sourceTree = "<group>"; };
+		133D3BE0075AD0C5C11D929F /* CheckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckViewModel.swift; sourceTree = "<group>"; };
+		1B3D71C584DAEFE2D9BF3F82 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
+		2282C0292C347E272D1EFF63 /* GenerateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateViewModel.swift; sourceTree = "<group>"; };
+		2C342FCB404E65F64A6B17BA /* foxNumberWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = foxNumberWidget.swift; sourceTree = "<group>"; };
+		4B23FC734A9300214E5FAEDC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		4EA0D32CF21D0795EEDCBD34 /* NumberStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberStat.swift; sourceTree = "<group>"; };
+		563851B85104D3B12917C81C /* LottoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottoService.swift; sourceTree = "<group>"; };
+		5EF3910A54C38B130AB6B55A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		849FA5DE49B974A7FA633110 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B06311AFE5FDF9648545083C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B47FA1BECA3C031988FDD3F3 /* foxNumber.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = foxNumber.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C869D6D9229A034949BC0F7C /* foxNumberWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = foxNumberWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC5A80E8D98EC8B75B747279 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
+		CC8BA1A4F33AF628788FCEA0 /* foxNumberApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = foxNumberApp.swift; sourceTree = "<group>"; };
+		DAE2D26C6127489B1500C400 /* StatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModel.swift; sourceTree = "<group>"; };
+		E01409AFF45C8B24FCD1472D /* LottoNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottoNumber.swift; sourceTree = "<group>"; };
+		E5D0037B6424BF1FC62A126C /* WinningResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinningResultView.swift; sourceTree = "<group>"; };
+		E6D021A254224710D29D996A /* WinningNumberCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinningNumberCache.swift; sourceTree = "<group>"; };
+		F03254964B81991A444436D4 /* LottoBallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottoBallView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		019232471E4699DDD576374B /* foxNumber */ = {
+			isa = PBXGroup;
+			children = (
+				4B23FC734A9300214E5FAEDC /* ContentView.swift */,
+				CC8BA1A4F33AF628788FCEA0 /* foxNumberApp.swift */,
+				19B0F13858CC6108BB5E46D3 /* Components */,
+				E1DE1BFC9B8D545EE94261F1 /* Models */,
+				E4BED582A76C5547EE6D64A7 /* Resources */,
+				09A6901667461D57F720171E /* Services */,
+				404DFAC1C73C0761E3391FD5 /* ViewModels */,
+				024DCE752C760E2589AC192F /* Views */,
+			);
+			path = foxNumber;
+			sourceTree = "<group>";
+		};
+		024DCE752C760E2589AC192F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				076038529323936CBCAEDF26 /* GenerateView.swift */,
+				09C6BFFB8012AFB6443757F3 /* MyNumbersView.swift */,
+				00F0905794BB7AB09981F9ED /* SettingsView.swift */,
+				CC5A80E8D98EC8B75B747279 /* StatsView.swift */,
+				E5D0037B6424BF1FC62A126C /* WinningResultView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		09A6901667461D57F720171E /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				563851B85104D3B12917C81C /* LottoService.swift */,
+				E6D021A254224710D29D996A /* WinningNumberCache.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		1503D2759D849C7A5C39AF0E /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				019232471E4699DDD576374B /* foxNumber */,
+				96252264C54A20CCBC19C5A7 /* foxNumberWidget */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		19B0F13858CC6108BB5E46D3 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				1B3D71C584DAEFE2D9BF3F82 /* DesignSystem.swift */,
+				F03254964B81991A444436D4 /* LottoBallView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		2983B97CF3793A30F2E8F668 = {
+			isa = PBXGroup;
+			children = (
+				1503D2759D849C7A5C39AF0E /* Sources */,
+				847845EC7F1B4E103CCE41A1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		404DFAC1C73C0761E3391FD5 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				133D3BE0075AD0C5C11D929F /* CheckViewModel.swift */,
+				2282C0292C347E272D1EFF63 /* GenerateViewModel.swift */,
+				DAE2D26C6127489B1500C400 /* StatsViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		847845EC7F1B4E103CCE41A1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B47FA1BECA3C031988FDD3F3 /* foxNumber.app */,
+				C869D6D9229A034949BC0F7C /* foxNumberWidget.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		96252264C54A20CCBC19C5A7 /* foxNumberWidget */ = {
+			isa = PBXGroup;
+			children = (
+				2C342FCB404E65F64A6B17BA /* foxNumberWidget.swift */,
+				849FA5DE49B974A7FA633110 /* Info.plist */,
+			);
+			path = foxNumberWidget;
+			sourceTree = "<group>";
+		};
+		E1DE1BFC9B8D545EE94261F1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E01409AFF45C8B24FCD1472D /* LottoNumber.swift */,
+				4EA0D32CF21D0795EEDCBD34 /* NumberStat.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E4BED582A76C5547EE6D64A7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5EF3910A54C38B130AB6B55A /* Assets.xcassets */,
+				B06311AFE5FDF9648545083C /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		33643DADB76A171CD3C5787E /* foxNumberWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 04ED2A133382D9F73EE48FDC /* Build configuration list for PBXNativeTarget "foxNumberWidget" */;
+			buildPhases = (
+				EECD3505C89C1CBC9BCEDF84 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = foxNumberWidget;
+			packageProductDependencies = (
+			);
+			productName = foxNumberWidget;
+			productReference = C869D6D9229A034949BC0F7C /* foxNumberWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		AA449F37455F45744B4A4FDD /* foxNumber */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D19EF3A9B04CC2DAB465566 /* Build configuration list for PBXNativeTarget "foxNumber" */;
+			buildPhases = (
+				583D669BE2DD1BD7DDC1B41F /* Sources */,
+				D40C530240C9CAF90AC50BF3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = foxNumber;
+			packageProductDependencies = (
+			);
+			productName = foxNumber;
+			productReference = B47FA1BECA3C031988FDD3F3 /* foxNumber.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		13EF28D8608A6E9A0CD85A74 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					33643DADB76A171CD3C5787E = {
+						DevelopmentTeam = "";
+					};
+					AA449F37455F45744B4A4FDD = {
+						DevelopmentTeam = "";
+					};
+				};
+			};
+			buildConfigurationList = 5786494DF3771893B0C20C3B /* Build configuration list for PBXProject "foxNumber" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 2983B97CF3793A30F2E8F668;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 847845EC7F1B4E103CCE41A1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AA449F37455F45744B4A4FDD /* foxNumber */,
+				33643DADB76A171CD3C5787E /* foxNumberWidget */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D40C530240C9CAF90AC50BF3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6FB00A4A4133D8C911445ACA /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		583D669BE2DD1BD7DDC1B41F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8ABED9BB537920AB65A7C6BB /* CheckViewModel.swift in Sources */,
+				BFFC4F42A346C3F9F598B71C /* ContentView.swift in Sources */,
+				89BD4D1BF2CA8065AC0176E3 /* DesignSystem.swift in Sources */,
+				BE58EE0D55AE0B62539CA7E3 /* GenerateView.swift in Sources */,
+				A39DE9441B000D6EAC3BBDB5 /* GenerateViewModel.swift in Sources */,
+				116D27788A9A952593B2EB67 /* LottoBallView.swift in Sources */,
+				4E8A33C53319D21E772DF198 /* LottoNumber.swift in Sources */,
+				E8377B7A5534AE6ED43A1C9F /* LottoService.swift in Sources */,
+				BA6EFFFC13C9E59A83EF7D9F /* MyNumbersView.swift in Sources */,
+				F67C9396A7FDE927AFA3C9A1 /* NumberStat.swift in Sources */,
+				4190BC6DEEC0C69000F18779 /* SettingsView.swift in Sources */,
+				F5FB1D80D250274F9443650A /* StatsView.swift in Sources */,
+				3F794C91C2EF4E8CE21654F4 /* StatsViewModel.swift in Sources */,
+				1E175E937AF4E686999D6EA6 /* WinningNumberCache.swift in Sources */,
+				D71C77FB4D90670DA7B85785 /* WinningResultView.swift in Sources */,
+				CAE802C5CEBEAF7D0A6CF53D /* foxNumberApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EECD3505C89C1CBC9BCEDF84 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C15DC3BEF6B70EB9E620B16 /* foxNumberWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		24F739F373524740025F08A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		5F018AF8F72B387D0F1E9936 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Sources/foxNumber/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.foxlab.foxNumber;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		7658E60EF78E08166769521F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Sources/foxNumber/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.foxlab.foxNumber;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BB658C7599F0D15008FA553A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = Sources/foxNumberWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.foxlab.foxNumber.widget;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D258799AD0EEEA5792228282 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = Sources/foxNumberWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.foxlab.foxNumber.widget;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E5D53C3E068E87DDF6174162 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		04ED2A133382D9F73EE48FDC /* Build configuration list for PBXNativeTarget "foxNumberWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D258799AD0EEEA5792228282 /* Debug */,
+				BB658C7599F0D15008FA553A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		1D19EF3A9B04CC2DAB465566 /* Build configuration list for PBXNativeTarget "foxNumber" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7658E60EF78E08166769521F /* Debug */,
+				5F018AF8F72B387D0F1E9936 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		5786494DF3771893B0C20C3B /* Build configuration list for PBXProject "foxNumber" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E5D53C3E068E87DDF6174162 /* Debug */,
+				24F739F373524740025F08A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 13EF28D8608A6E9A0CD85A74 /* Project object */;
+}

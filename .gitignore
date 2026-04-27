@@ -1,0 +1,30 @@
+# Xcode
+*.xcuserstate
+xcuserdata/
+*.xcscmblueprint
+DerivedData/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Build
+build/
+*.o
+*.d
+
+# CocoaPods (미사용이지만 예비)
+Pods/
+Podfile.lock
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Xcode workspace (xcworkspace는 xcodeproj 내부 것만 유지)
+foxNumber.xcodeproj/project.xcworkspace/xcuserdata/
+foxNumber.xcodeproj/xcuserdata/
