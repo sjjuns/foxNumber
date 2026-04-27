@@ -12,6 +12,29 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ---
 
+## 커밋 규칙
+
+Conventional Commits 형식을 따른다.
+
+```
+<타입>: <제목>
+```
+
+| 타입 | 용도 |
+|---|---|
+| `feat` | 새 기능 추가 |
+| `fix` | 버그 수정 |
+| `chore` | 빌드/설정/의존성 변경 |
+| `docs` | 문서만 변경 (README, CLAUDE.md 등) |
+| `style` | 코드 포맷/UI 스타일 (기능 변화 없음) |
+| `refactor` | 기능 변화 없는 코드 구조 개선 |
+| `test` | 테스트 추가/수정 |
+
+- 제목은 한국어, 명령형으로 작성 (`추가`, `수정`, `제거`)
+- `docs: README 업데이트` 자동 커밋은 훅이 생성하므로 수동 작성 불필요
+
+---
+
 ## 빌드 명령어
 
 > `.xcodeproj`는 `xcodegen`으로 생성된다. `project.yml`을 수정한 후 반드시 재생성할 것.
