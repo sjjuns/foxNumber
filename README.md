@@ -41,6 +41,9 @@ xcodebuild -project foxNumber.xcodeproj \
 
 ## 변경 이력
 
+* 2026-04-28 [jjuns : [1924856](https://github.com/sjjuns/foxNumber/commit/1924856)]
+  * 모던 미니멀 + 다크/라이트 모드 디자인 리뉴얼 — 적응형 ColorSet 9종 추가, accent 색상 체계 전환, 전체 View 레이아웃 개편
+
 * 2026-04-27 [sjjuns : [f0cbe7d](https://github.com/sjjuns/foxNumber/commit/f0cbe7d)]
   * xcodegen 프로젝트 파일 업데이트 (위젯 타겟 및 신규 소스 파일 반영)
 

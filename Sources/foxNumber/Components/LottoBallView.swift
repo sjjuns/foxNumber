@@ -5,29 +5,34 @@ struct LottoBallView: View {
     var size: CGFloat = 48
     var isHighlighted: Bool = false
 
+    @Environment(\.colorScheme) private var colorScheme
+
     var body: some View {
         ZStack {
             Circle()
-                .fill(
-                    RadialGradient(
-                        colors: [
-                            ballColor.opacity(0.9),
-                            ballColor
-                        ],
-                        center: .topLeading,
-                        startRadius: 0,
-                        endRadius: size
-                    )
-                )
+                .fill(ballColor)
                 .frame(width: size, height: size)
+                .overlay(
+                    Circle()
+                        .fill(
+                            LinearGradient(
+                                colors: [Color.white.opacity(0.25), Color.clear],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                )
                 .shadow(
-                    color: isHighlighted ? DesignSystem.gold.opacity(0.8) : ballColor.opacity(0.4),
-                    radius: isHighlighted ? 12 : 6
+                    color: isHighlighted
+                        ? DesignSystem.gold.opacity(0.6)
+                        : (colorScheme == .dark ? ballColor.opacity(0.35) : Color.black.opacity(0.15)),
+                    radius: isHighlighted ? 10 : 4,
+                    y: isHighlighted ? 0 : 2
                 )
                 .overlay(
                     Circle()
                         .stroke(
-                            isHighlighted ? DesignSystem.gold : Color.white.opacity(0.2),
+                            isHighlighted ? DesignSystem.gold : Color.white.opacity(0.15),
                             lineWidth: isHighlighted ? 2 : 1
                         )
                 )
@@ -43,17 +48,17 @@ struct LottoBallView: View {
     }
 }
 
-// MARK: - Empty Ball (생성 전 자리 표시)
+// MARK: - Empty Ball
 struct EmptyBallView: View {
     var size: CGFloat = 48
 
     var body: some View {
         Circle()
-            .fill(DesignSystem.cardBackground)
+            .fill(DesignSystem.groupBackground)
             .frame(width: size, height: size)
             .overlay(
                 Circle()
-                    .stroke(DesignSystem.textSecondary.opacity(0.3), lineWidth: 1)
+                    .stroke(DesignSystem.divider, lineWidth: 1)
             )
     }
 }
