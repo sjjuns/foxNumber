@@ -22,15 +22,12 @@ struct MyNumbersView: View {
                     listView
                 }
 
-                // 로딩 오버레이
                 if case .loading = checkVM.state {
                     loadingOverlay
                 }
             }
             .navigationTitle("내 번호")
             .navigationBarTitleDisplayMode(.large)
-            .toolbarColorScheme(.dark, for: .navigationBar)
-            // 단일 결과 시트
             .sheet(isPresented: $showResultSheet) {
                 if let first = checkVM.results.first {
                     WinningResultView(
@@ -40,10 +37,8 @@ struct MyNumbersView: View {
                     )
                     .presentationDetents([.large])
                     .presentationDragIndicator(.visible)
-                    .preferredColorScheme(.dark)
                 }
             }
-            // 에러 알럿
             .alert("확인 실패", isPresented: $showErrorAlert) {
                 Button("확인", role: .cancel) {}
             } message: {
@@ -65,106 +60,108 @@ struct MyNumbersView: View {
 
     // MARK: - 목록
     private var listView: some View {
-        List {
-            ForEach(groupedByRound, id: \.key) { round, items in
-                Section {
-                    ForEach(items) { item in
-                        NumberRowView(item: item) {
-                            // 행 탭 → 단일 당첨 확인
-                            Task { await checkVM.check(item: item) }
-                        }
-                        .listRowBackground(DesignSystem.cardBackground)
-                        .listRowSeparatorTint(DesignSystem.textSecondary.opacity(0.15))
-                        .swipeActions(edge: .trailing) {
-                            Button(role: .destructive) {
-                                context.delete(item)
-                            } label: {
-                                Label("삭제", systemImage: "trash")
-                            }
-                        }
-                        .swipeActions(edge: .leading) {
-                            Button {
-                                Task { await checkVM.check(item: item) }
-                            } label: {
-                                Label("확인", systemImage: "checkmark.circle")
-                            }
-                            .tint(DesignSystem.gold)
-                        }
-                    }
-                } header: {
-                    HStack {
-                        Text("제 \(round)회")
-                            .font(.caption.bold())
-                            .foregroundColor(DesignSystem.gold)
-                        Spacer()
-                        Text("\(items.count)게임")
-                            .font(.caption2)
-                            .foregroundColor(DesignSystem.textSecondary)
-                    }
+        ScrollView {
+            VStack(spacing: DesignSystem.Spacing.lg) {
+                // 일괄 확인 버튼
+                if !uncheckedNumbers.isEmpty {
+                    batchCheckButton
+                        .padding(.horizontal, DesignSystem.Spacing.md)
+                        .padding(.top, DesignSystem.Spacing.sm)
                 }
-            }
 
-            // 일괄 당첨 확인
-            Section {
-                Button {
-                    Task { await checkVM.checkAll(items: uncheckedNumbers, context: context) }
-                } label: {
-                    HStack {
-                        Spacer()
-                        if uncheckedNumbers.isEmpty {
-                            Text("모든 번호 확인 완료")
-                                .font(.subheadline)
-                                .foregroundColor(DesignSystem.textSecondary)
-                        } else {
-                            Text("미확인 \(uncheckedNumbers.count)개 당첨 확인")
-                                .font(.subheadline.bold())
-                                .foregroundColor(DesignSystem.background)
+                ForEach(groupedByRound, id: \.key) { round, items in
+                    VStack(alignment: .leading, spacing: DesignSystem.Spacing.sm) {
+                        // 섹션 헤더
+                        HStack {
+                            Text("제 \(round)회")
+                                .font(DesignSystem.Typography.micro)
+                                .foregroundStyle(DesignSystem.textTertiary)
+                            Spacer()
+                            Text("\(items.count)게임")
+                                .font(DesignSystem.Typography.micro)
+                                .foregroundStyle(DesignSystem.textTertiary)
                         }
-                        Spacer()
+                        .padding(.horizontal, DesignSystem.Spacing.md)
+
+                        VStack(spacing: 1) {
+                            ForEach(items) { item in
+                                NumberRowView(item: item) {
+                                    Task { await checkVM.check(item: item) }
+                                }
+                                .background(DesignSystem.cardBackground)
+                                .contextMenu {
+                                    Button(role: .destructive) {
+                                        context.delete(item)
+                                    } label: {
+                                        Label("삭제", systemImage: "trash")
+                                    }
+                                }
+                            }
+                        }
+                        .clipShape(RoundedRectangle(cornerRadius: DesignSystem.Radius.md))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: DesignSystem.Radius.md)
+                                .stroke(DesignSystem.divider, lineWidth: 1)
+                        )
+                        .padding(.horizontal, DesignSystem.Spacing.md)
                     }
-                    .frame(height: 44)
-                    .background(uncheckedNumbers.isEmpty ? DesignSystem.cardBackground : DesignSystem.gold)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
-                .disabled(uncheckedNumbers.isEmpty)
-                .listRowBackground(Color.clear)
-                .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
             }
+            .padding(.bottom, 32)
         }
-        .listStyle(.insetGrouped)
-        .scrollContentBackground(.hidden)
+    }
+
+    private var batchCheckButton: some View {
+        Button {
+            Task { await checkVM.checkAll(items: uncheckedNumbers, context: context) }
+        } label: {
+            HStack {
+                Image(systemName: "checkmark.circle")
+                Text("미확인 \(uncheckedNumbers.count)개 당첨 확인")
+                    .font(DesignSystem.Typography.headline)
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 50)
+            .background(DesignSystem.accent)
+            .foregroundStyle(Color.white)
+            .clipShape(RoundedRectangle(cornerRadius: DesignSystem.Radius.md))
+        }
     }
 
     // MARK: - 빈 상태
     private var emptyView: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: DesignSystem.Spacing.md) {
             Image(systemName: "tray")
-                .font(.system(size: 48))
-                .foregroundColor(DesignSystem.textSecondary)
+                .font(.system(size: 44))
+                .foregroundStyle(DesignSystem.textTertiary)
             Text("저장된 번호가 없어요")
-                .font(.headline)
-                .foregroundColor(DesignSystem.textSecondary)
+                .font(DesignSystem.Typography.headline)
+                .foregroundStyle(DesignSystem.textSecondary)
             Text("생성 탭에서 번호를 만들고 저장해보세요")
-                .font(.caption)
-                .foregroundColor(DesignSystem.textSecondary.opacity(0.6))
+                .font(DesignSystem.Typography.caption)
+                .foregroundStyle(DesignSystem.textTertiary)
         }
     }
 
     // MARK: - 로딩 오버레이
     private var loadingOverlay: some View {
         ZStack {
-            Color.black.opacity(0.5).ignoresSafeArea()
-            VStack(spacing: 16) {
+            Color.black.opacity(0.4).ignoresSafeArea()
+            VStack(spacing: DesignSystem.Spacing.md) {
                 ProgressView()
-                    .tint(DesignSystem.gold)
+                    .tint(DesignSystem.accent)
                     .scaleEffect(1.4)
                 Text("당첨 번호 확인 중...")
-                    .font(.subheadline)
-                    .foregroundColor(DesignSystem.textPrimary)
+                    .font(DesignSystem.Typography.caption)
+                    .foregroundStyle(DesignSystem.textSecondary)
             }
-            .padding(32)
+            .padding(DesignSystem.Spacing.xl)
             .background(DesignSystem.cardBackground)
-            .clipShape(RoundedRectangle(cornerRadius: 20))
+            .clipShape(RoundedRectangle(cornerRadius: DesignSystem.Radius.lg))
+            .overlay(
+                RoundedRectangle(cornerRadius: DesignSystem.Radius.lg)
+                    .stroke(DesignSystem.divider, lineWidth: 1)
+            )
         }
     }
 
@@ -186,23 +183,28 @@ struct NumberRowView: View {
 
     var body: some View {
         Button(action: onTap) {
-            VStack(alignment: .leading, spacing: 8) {
-                HStack(spacing: 6) {
+            HStack(spacing: DesignSystem.Spacing.sm) {
+                HStack(spacing: 5) {
                     ForEach(item.numbers, id: \.self) { number in
                         LottoBallView(
                             number: number,
-                            size: 36,
-                            isHighlighted: item.checkResult != nil && item.checkResult?.rank != LottoRank.none
+                            size: 34,
+                            isHighlighted: item.checkResult?.rank != nil && item.checkResult?.rank != LottoRank.none
                         )
                     }
-                    Spacer()
-                    resultBadge
                 }
-                Text(item.savedAt.formatted(date: .abbreviated, time: .omitted))
-                    .font(.caption2)
-                    .foregroundColor(DesignSystem.textSecondary)
+
+                Spacer()
+
+                VStack(alignment: .trailing, spacing: 3) {
+                    resultBadge
+                    Text(item.savedAt.formatted(date: .abbreviated, time: .omitted))
+                        .font(DesignSystem.Typography.micro)
+                        .foregroundStyle(DesignSystem.textTertiary)
+                }
             }
-            .padding(.vertical, 4)
+            .padding(.horizontal, DesignSystem.Spacing.md)
+            .padding(.vertical, 12)
         }
         .buttonStyle(.plain)
     }
@@ -210,24 +212,24 @@ struct NumberRowView: View {
     @ViewBuilder
     private var resultBadge: some View {
         if let result = item.checkResult {
-            Text("\(result.rank.emoji) \(result.rank.title)")
-                .font(.caption.bold())
-                .padding(.horizontal, 8)
-                .padding(.vertical, 4)
+            Text(result.rank == LottoRank.none ? "낙첨" : "\(result.rank.emoji) \(result.rank.title)")
+                .font(DesignSystem.Typography.micro)
+                .padding(.horizontal, 7)
+                .padding(.vertical, 3)
                 .background(result.rank == LottoRank.none
-                    ? DesignSystem.textSecondary.opacity(0.2)
-                    : DesignSystem.gold.opacity(0.2))
-                .foregroundColor(result.rank == LottoRank.none
-                    ? DesignSystem.textSecondary
-                    : DesignSystem.gold)
+                    ? DesignSystem.groupBackground
+                    : DesignSystem.accent.opacity(0.15))
+                .foregroundStyle(result.rank == LottoRank.none
+                    ? DesignSystem.textTertiary
+                    : DesignSystem.accent)
                 .clipShape(Capsule())
         } else {
-            Text("탭하여 확인")
-                .font(.caption)
-                .padding(.horizontal, 8)
-                .padding(.vertical, 4)
-                .background(DesignSystem.textSecondary.opacity(0.15))
-                .foregroundColor(DesignSystem.textSecondary)
+            Text("확인하기")
+                .font(DesignSystem.Typography.micro)
+                .padding(.horizontal, 7)
+                .padding(.vertical, 3)
+                .background(DesignSystem.groupBackground)
+                .foregroundStyle(DesignSystem.textTertiary)
                 .clipShape(Capsule())
         }
     }
@@ -236,5 +238,4 @@ struct NumberRowView: View {
 #Preview {
     MyNumbersView()
         .modelContainer(for: LottoNumber.self, inMemory: true)
-        .preferredColorScheme(.dark)
 }

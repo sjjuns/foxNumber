@@ -67,7 +67,6 @@ struct SettingsView: View {
             }
             .navigationTitle("설정")
             .navigationBarTitleDisplayMode(.large)
-            .toolbarColorScheme(.dark, for: .navigationBar)
             .alert("번호 초기화", isPresented: $showDeleteAlert) {
                 Button("취소", role: .cancel) {}
                 Button("삭제", role: .destructive) { deleteAll() }
@@ -89,7 +88,7 @@ struct SettingsView: View {
                         .foregroundColor(DesignSystem.textSecondary)
                 }
             }
-            .tint(DesignSystem.gold)
+            .tint(DesignSystem.accent)
             .listRowBackground(DesignSystem.cardBackground)
             .onChange(of: notificationEnabled) { _, enabled in
                 enabled ? requestNotification() : cancelNotification()
@@ -111,7 +110,7 @@ struct SettingsView: View {
                         Spacer()
                         if selectedIcon == id {
                             Image(systemName: "checkmark")
-                                .foregroundColor(DesignSystem.gold)
+                                .foregroundColor(DesignSystem.accent)
                         }
                     }
                 }
@@ -215,12 +214,10 @@ struct PrivacyView: View {
             }
         }
         .navigationTitle("개인정보처리방침")
-        .toolbarColorScheme(.dark, for: .navigationBar)
     }
 }
 
 #Preview {
     SettingsView()
         .modelContainer(for: LottoNumber.self, inMemory: true)
-        .preferredColorScheme(.dark)
 }

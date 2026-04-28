@@ -21,17 +21,10 @@ struct StatsView: View {
                 DesignSystem.background.ignoresSafeArea()
 
                 ScrollView {
-                    VStack(spacing: 20) {
-                        // 범위 선택
-                        Picker("범위", selection: $selectedRange) {
-                            ForEach(StatRange.allCases, id: \.self) {
-                                Text($0.rawValue).tag($0)
-                            }
-                        }
-                        .pickerStyle(.segmented)
-                        .padding(.horizontal, 20)
+                    VStack(spacing: DesignSystem.Spacing.lg) {
+                        rangeSelector
+                            .padding(.horizontal, DesignSystem.Spacing.md)
 
-                        // 상태별 콘텐츠
                         switch vm.state {
                         case .idle:
                             Color.clear.onAppear { Task { await vm.load(range: selectedRange.count) } }
@@ -46,63 +39,94 @@ struct StatsView: View {
                             errorView(msg)
                         }
                     }
-                    .padding(.top, 16)
+                    .padding(.top, DesignSystem.Spacing.md)
                     .padding(.bottom, 32)
                 }
             }
             .navigationTitle("번호 통계")
             .navigationBarTitleDisplayMode(.large)
-            .toolbarColorScheme(.dark, for: .navigationBar)
             .onChange(of: selectedRange) { _, _ in
                 Task { await vm.load(range: selectedRange.count) }
             }
         }
     }
 
+    // MARK: - 범위 선택 (커스텀 캡슐 탭)
+    private var rangeSelector: some View {
+        HStack(spacing: DesignSystem.Spacing.sm) {
+            ForEach(StatRange.allCases, id: \.self) { range in
+                Button {
+                    withAnimation(.spring(response: 0.25)) { selectedRange = range }
+                } label: {
+                    Text(range.rawValue)
+                        .font(DesignSystem.Typography.caption)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 36)
+                        .background(
+                            selectedRange == range
+                            ? DesignSystem.accent
+                            : DesignSystem.cardBackground
+                        )
+                        .foregroundStyle(
+                            selectedRange == range
+                            ? Color.white
+                            : DesignSystem.textSecondary
+                        )
+                        .clipShape(RoundedRectangle(cornerRadius: DesignSystem.Radius.sm))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: DesignSystem.Radius.sm)
+                                .stroke(
+                                    selectedRange == range ? Color.clear : DesignSystem.divider,
+                                    lineWidth: 1
+                                )
+                        )
+                }
+            }
+        }
+    }
+
     // MARK: - 로딩
     private func loadingView(progress: Double) -> some View {
-        VStack(spacing: 20) {
+        VStack(spacing: DesignSystem.Spacing.md) {
             Spacer().frame(height: 40)
-
             ZStack {
                 Circle()
-                    .stroke(DesignSystem.cardBackground, lineWidth: 6)
+                    .stroke(DesignSystem.divider, lineWidth: 6)
                     .frame(width: 80, height: 80)
                 Circle()
                     .trim(from: 0, to: progress)
-                    .stroke(DesignSystem.gold, style: StrokeStyle(lineWidth: 6, lineCap: .round))
+                    .stroke(DesignSystem.accent, style: StrokeStyle(lineWidth: 6, lineCap: .round))
                     .frame(width: 80, height: 80)
                     .rotationEffect(.degrees(-90))
                     .animation(.linear(duration: 0.2), value: progress)
                 Text("\(Int(progress * 100))%")
-                    .font(.caption.bold())
-                    .foregroundColor(DesignSystem.gold)
+                    .font(DesignSystem.Typography.caption)
+                    .foregroundStyle(DesignSystem.accent)
             }
-
             Text("회차 데이터 불러오는 중...")
-                .font(.subheadline)
-                .foregroundColor(DesignSystem.textSecondary)
+                .font(DesignSystem.Typography.caption)
+                .foregroundStyle(DesignSystem.textSecondary)
         }
         .frame(maxWidth: .infinity)
     }
 
     // MARK: - 에러
     private func errorView(_ msg: String) -> some View {
-        VStack(spacing: 16) {
+        VStack(spacing: DesignSystem.Spacing.md) {
             Image(systemName: "wifi.slash")
                 .font(.system(size: 40))
-                .foregroundColor(DesignSystem.textSecondary)
+                .foregroundStyle(DesignSystem.textTertiary)
             Text(msg)
-                .font(.subheadline)
-                .foregroundColor(DesignSystem.textSecondary)
+                .font(DesignSystem.Typography.caption)
+                .foregroundStyle(DesignSystem.textSecondary)
             Button("다시 시도") {
                 Task { await vm.load(range: selectedRange.count) }
             }
-            .font(.subheadline.bold())
-            .foregroundColor(DesignSystem.gold)
-            .padding(.horizontal, 24)
+            .font(DesignSystem.Typography.caption)
+            .foregroundStyle(DesignSystem.accent)
+            .padding(.horizontal, DesignSystem.Spacing.lg)
             .padding(.vertical, 10)
-            .overlay(Capsule().stroke(DesignSystem.gold, lineWidth: 1))
+            .overlay(Capsule().stroke(DesignSystem.accent, lineWidth: 1))
         }
         .frame(maxWidth: .infinity)
         .padding(.top, 60)
@@ -110,37 +134,30 @@ struct StatsView: View {
 
     // MARK: - 통계 콘텐츠
     private var statsContent: some View {
-        VStack(spacing: 20) {
-            // 데이터 출처 안내
+        VStack(spacing: DesignSystem.Spacing.lg) {
             HStack {
                 Image(systemName: "checkmark.seal.fill")
-                    .foregroundColor(DesignSystem.gold)
-                    .font(.caption)
+                    .foregroundStyle(DesignSystem.accent)
+                    .font(DesignSystem.Typography.micro)
                 Text("동행복권 실제 데이터 \(vm.fetchedRounds)회차 기준")
-                    .font(.caption)
-                    .foregroundColor(DesignSystem.textSecondary)
+                    .font(DesignSystem.Typography.micro)
+                    .foregroundStyle(DesignSystem.textTertiary)
                 Spacer()
             }
-            .padding(.horizontal, 20)
+            .padding(.horizontal, DesignSystem.Spacing.md)
 
-            // 빈도 차트
             frequencyChartSection
-
-            // 핫/콜드
             hotColdSection
-
-            // 분포
             distributionSection
         }
     }
 
     // MARK: - 빈도 차트
     private var frequencyChartSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: DesignSystem.Spacing.sm) {
             Text("번호별 출현 빈도")
-                .font(.headline.bold())
-                .foregroundColor(DesignSystem.textPrimary)
-                .padding(.horizontal, 20)
+                .font(DesignSystem.Typography.headline)
+                .foregroundStyle(DesignSystem.textPrimary)
 
             Chart(vm.stats) { stat in
                 BarMark(
@@ -149,10 +166,10 @@ struct StatsView: View {
                 )
                 .foregroundStyle(
                     vm.hotNumbers.contains(stat.number)
-                    ? DesignSystem.gold
+                    ? DesignSystem.accent
                     : vm.coldNumbers.contains(stat.number)
-                      ? DesignSystem.textSecondary.opacity(0.6)
-                      : DesignSystem.ballColor(for: stat.number).opacity(0.8)
+                      ? DesignSystem.textTertiary
+                      : DesignSystem.ballColor(for: stat.number).opacity(0.75)
                 )
                 .cornerRadius(2)
             }
@@ -162,8 +179,8 @@ struct StatsView: View {
                 AxisMarks(values: [1, 10, 20, 30, 40, 45]) { value in
                     AxisValueLabel {
                         Text("\(value.as(Int.self) ?? 0)")
-                            .font(.caption2)
-                            .foregroundColor(DesignSystem.textSecondary)
+                            .font(.system(size: 10))
+                            .foregroundStyle(DesignSystem.textTertiary)
                     }
                 }
             }
@@ -171,120 +188,146 @@ struct StatsView: View {
                 AxisMarks(position: .leading) { value in
                     AxisValueLabel {
                         Text("\(value.as(Int.self) ?? 0)")
-                            .font(.caption2)
-                            .foregroundColor(DesignSystem.textSecondary)
+                            .font(.system(size: 10))
+                            .foregroundStyle(DesignSystem.textTertiary)
                     }
                     AxisGridLine(stroke: StrokeStyle(lineWidth: 0.5))
-                        .foregroundStyle(DesignSystem.textSecondary.opacity(0.2))
+                        .foregroundStyle(DesignSystem.divider)
                 }
             }
-            .padding(.horizontal, 20)
 
-            // 범례
-            HStack(spacing: 16) {
-                legendDot(color: DesignSystem.gold, label: "핫 번호")
-                legendDot(color: DesignSystem.textSecondary.opacity(0.6), label: "콜드 번호")
+            HStack(spacing: DesignSystem.Spacing.md) {
+                legendDot(color: DesignSystem.accent, label: "핫 번호")
+                legendDot(color: DesignSystem.textTertiary, label: "콜드 번호")
             }
-            .padding(.horizontal, 20)
         }
-        .padding(.vertical, 16)
+        .padding(DesignSystem.Spacing.md)
         .background(DesignSystem.cardBackground)
-        .clipShape(RoundedRectangle(cornerRadius: 16))
-        .padding(.horizontal, 20)
+        .clipShape(RoundedRectangle(cornerRadius: DesignSystem.Radius.md))
+        .overlay(
+            RoundedRectangle(cornerRadius: DesignSystem.Radius.md)
+                .stroke(DesignSystem.divider, lineWidth: 1)
+        )
+        .padding(.horizontal, DesignSystem.Spacing.md)
     }
 
     private func legendDot(color: Color, label: String) -> some View {
-        HStack(spacing: 6) {
-            Circle().fill(color).frame(width: 8, height: 8)
-            Text(label).font(.caption2).foregroundColor(DesignSystem.textSecondary)
+        HStack(spacing: 5) {
+            Circle().fill(color).frame(width: 6, height: 6)
+            Text(label).font(DesignSystem.Typography.micro).foregroundStyle(DesignSystem.textTertiary)
         }
     }
 
-    // MARK: - 핫/콜드
+    // MARK: - 핫/콜드 (가로 스크롤)
     private var hotColdSection: some View {
-        HStack(spacing: 12) {
-            statCard(title: "🔥 핫 번호", subtitle: "자주 나온 번호", numbers: vm.hotNumbers)
-            statCard(title: "🧊 콜드 번호", subtitle: "안 나온 번호", numbers: vm.coldNumbers)
+        VStack(alignment: .leading, spacing: DesignSystem.Spacing.sm) {
+            HStack {
+                Text("핫 / 콜드 번호")
+                    .font(DesignSystem.Typography.headline)
+                    .foregroundStyle(DesignSystem.textPrimary)
+                Spacer()
+            }
+            .padding(.horizontal, DesignSystem.Spacing.md)
+
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: DesignSystem.Spacing.sm) {
+                    statCard(title: "🔥 핫", subtitle: "자주 나온 번호", numbers: vm.hotNumbers)
+                    statCard(title: "🧊 콜드", subtitle: "안 나온 번호", numbers: vm.coldNumbers)
+                }
+                .padding(.horizontal, DesignSystem.Spacing.md)
+            }
         }
-        .padding(.horizontal, 20)
     }
 
     private func statCard(title: String, subtitle: String, numbers: [Int]) -> some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: DesignSystem.Spacing.sm) {
             VStack(alignment: .leading, spacing: 2) {
-                Text(title).font(.subheadline.bold()).foregroundColor(DesignSystem.textPrimary)
-                Text(subtitle).font(.caption2).foregroundColor(DesignSystem.textSecondary)
+                Text(title)
+                    .font(DesignSystem.Typography.caption)
+                    .foregroundStyle(DesignSystem.textPrimary)
+                Text(subtitle)
+                    .font(DesignSystem.Typography.micro)
+                    .foregroundStyle(DesignSystem.textTertiary)
             }
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 6), count: 3), spacing: 6) {
+            LazyVGrid(
+                columns: Array(repeating: GridItem(.fixed(38), spacing: DesignSystem.Spacing.sm), count: 3),
+                spacing: DesignSystem.Spacing.sm
+            ) {
                 ForEach(numbers, id: \.self) { LottoBallView(number: $0, size: 34) }
             }
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(14)
+        .padding(DesignSystem.Spacing.md)
+        .frame(width: 160)
         .background(DesignSystem.cardBackground)
-        .clipShape(RoundedRectangle(cornerRadius: 14))
+        .clipShape(RoundedRectangle(cornerRadius: DesignSystem.Radius.md))
+        .overlay(
+            RoundedRectangle(cornerRadius: DesignSystem.Radius.md)
+                .stroke(DesignSystem.divider, lineWidth: 1)
+        )
     }
 
     // MARK: - 분포
     private var distributionSection: some View {
-        VStack(alignment: .leading, spacing: 14) {
+        VStack(alignment: .leading, spacing: DesignSystem.Spacing.md) {
             Text("분포 요약")
-                .font(.headline.bold())
-                .foregroundColor(DesignSystem.textPrimary)
+                .font(DesignSystem.Typography.headline)
+                .foregroundStyle(DesignSystem.textPrimary)
 
-            // 홀/짝 바
             distributionBar(
-                left: ("홀수", vm.oddRatio, DesignSystem.gold),
-                right: ("짝수", 100 - vm.oddRatio, DesignSystem.textSecondary)
+                left: ("홀수", vm.oddRatio, DesignSystem.accent),
+                right: ("짝수", 100 - vm.oddRatio, DesignSystem.textTertiary)
             )
 
-            // 구간 바
-            HStack(spacing: 0) {
-                rangeBar(label: "저\n1-15", ratio: vm.lowRatio,  color: Color(hex: "#F5C518"))
+            HStack(spacing: 2) {
+                rangeBar(label: "저\n1-15",  ratio: vm.lowRatio,  color: Color(hex: "#F5C518"))
                 rangeBar(label: "중\n16-30", ratio: vm.midRatio,  color: Color(hex: "#3B82F6"))
                 rangeBar(label: "고\n31-45", ratio: vm.highRatio, color: Color(hex: "#E63946"))
             }
             .frame(height: 48)
-            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .clipShape(RoundedRectangle(cornerRadius: DesignSystem.Radius.sm))
         }
-        .padding(16)
+        .padding(DesignSystem.Spacing.md)
         .background(DesignSystem.cardBackground)
-        .clipShape(RoundedRectangle(cornerRadius: 16))
-        .padding(.horizontal, 20)
+        .clipShape(RoundedRectangle(cornerRadius: DesignSystem.Radius.md))
+        .overlay(
+            RoundedRectangle(cornerRadius: DesignSystem.Radius.md)
+                .stroke(DesignSystem.divider, lineWidth: 1)
+        )
+        .padding(.horizontal, DesignSystem.Spacing.md)
     }
 
     private func distributionBar(
         left: (String, Int, Color),
         right: (String, Int, Color)
     ) -> some View {
-        VStack(spacing: 6) {
+        VStack(spacing: DesignSystem.Spacing.xs) {
             GeometryReader { geo in
                 HStack(spacing: 2) {
-                    RoundedRectangle(cornerRadius: 4)
+                    RoundedRectangle(cornerRadius: 3)
                         .fill(left.2)
                         .frame(width: geo.size.width * CGFloat(left.1) / 100)
-                    RoundedRectangle(cornerRadius: 4)
-                        .fill(right.2.opacity(0.5))
+                    RoundedRectangle(cornerRadius: 3)
+                        .fill(right.2.opacity(0.4))
                 }
             }
-            .frame(height: 10)
+            .frame(height: 8)
 
             HStack {
                 Text("\(left.0) \(left.1)%")
-                    .font(.caption2).foregroundColor(left.2)
+                    .font(DesignSystem.Typography.micro).foregroundStyle(left.2)
                 Spacer()
                 Text("\(right.0) \(right.1)%")
-                    .font(.caption2).foregroundColor(DesignSystem.textSecondary)
+                    .font(DesignSystem.Typography.micro).foregroundStyle(DesignSystem.textTertiary)
             }
         }
     }
 
     private func rangeBar(label: String, ratio: Int, color: Color) -> some View {
         ZStack {
-            color.opacity(0.8)
+            color.opacity(0.85)
             VStack(spacing: 2) {
-                Text("\(ratio)%").font(.caption.bold()).foregroundColor(.white)
-                Text(label).font(.system(size: 9)).foregroundColor(.white.opacity(0.8))
+                Text("\(ratio)%").font(DesignSystem.Typography.micro).bold().foregroundStyle(.white)
+                Text(label).font(.system(size: 9)).foregroundStyle(.white.opacity(0.8))
                     .multilineTextAlignment(.center)
             }
         }
@@ -294,5 +337,5 @@ struct StatsView: View {
 }
 
 #Preview {
-    StatsView().preferredColorScheme(.dark)
+    StatsView()
 }

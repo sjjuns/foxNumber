@@ -27,11 +27,10 @@ struct ContentView: View {
                     Text("설정")
                 }
         }
-        .tint(DesignSystem.gold)
+        .tint(DesignSystem.accent)
     }
 }
 
 #Preview {
     ContentView()
-        .preferredColorScheme(.dark)
 }

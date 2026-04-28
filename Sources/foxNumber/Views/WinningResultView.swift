@@ -43,12 +43,12 @@ struct WinningResultView: View {
                             dismiss()
                         } label: {
                             Text("확인")
-                                .font(.headline.bold())
+                                .font(DesignSystem.Typography.headline)
                                 .frame(maxWidth: .infinity)
-                                .frame(height: 52)
-                                .background(DesignSystem.gold)
-                                .foregroundColor(DesignSystem.background)
-                                .clipShape(RoundedRectangle(cornerRadius: 14))
+                                .frame(height: 56)
+                                .background(DesignSystem.accent)
+                                .foregroundStyle(Color.white)
+                                .clipShape(RoundedRectangle(cornerRadius: DesignSystem.Radius.md))
                         }
                         .padding(.bottom, 32)
                     }
@@ -165,16 +165,15 @@ struct WinningResultView: View {
 
     // MARK: - 결과 카드
     private var resultCard: some View {
-        VStack(spacing: 16) {
-            // 등수
+        VStack(spacing: DesignSystem.Spacing.md) {
             HStack {
-                VStack(alignment: .leading, spacing: 4) {
+                VStack(alignment: .leading, spacing: DesignSystem.Spacing.xs) {
                     Text(result.rank == .none ? "아쉽게도 낙첨입니다" : "축하합니다!")
-                        .font(.headline.bold())
-                        .foregroundColor(result.rank == .none ? DesignSystem.textSecondary : DesignSystem.gold)
+                        .font(DesignSystem.Typography.headline)
+                        .foregroundStyle(result.rank == .none ? DesignSystem.textSecondary : DesignSystem.accent)
                     Text(result.rank == .none ? "다음 회차를 노려보세요 💪" : "\(result.rank.title) 당첨!")
-                        .font(.subheadline)
-                        .foregroundColor(DesignSystem.textPrimary)
+                        .font(DesignSystem.Typography.body)
+                        .foregroundStyle(DesignSystem.textPrimary)
                 }
                 Spacer()
                 Text(result.rank.emoji)
@@ -182,35 +181,28 @@ struct WinningResultView: View {
             }
 
             if result.rank != .none {
-                Divider().background(DesignSystem.textSecondary.opacity(0.2))
+                Divider().foregroundStyle(DesignSystem.divider)
 
-                // 당첨금 (1등만 실제 금액, 나머지는 고정)
                 HStack {
                     Text("당첨금")
-                        .font(.subheadline)
-                        .foregroundColor(DesignSystem.textSecondary)
+                        .font(DesignSystem.Typography.body)
+                        .foregroundStyle(DesignSystem.textSecondary)
                     Spacer()
                     Text(prizeText)
-                        .font(.headline.bold())
-                        .foregroundColor(DesignSystem.gold)
+                        .font(DesignSystem.Typography.headline)
+                        .foregroundStyle(DesignSystem.accent)
                 }
             }
         }
-        .padding(20)
-        .background {
-            if result.rank == LottoRank.none {
-                DesignSystem.cardBackground
-            } else {
-                DesignSystem.cardBackground.overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(DesignSystem.gold.opacity(0.4), lineWidth: 1)
+        .padding(DesignSystem.Spacing.md)
+        .background(DesignSystem.cardBackground)
+        .clipShape(RoundedRectangle(cornerRadius: DesignSystem.Radius.md))
+        .overlay(
+            RoundedRectangle(cornerRadius: DesignSystem.Radius.md)
+                .stroke(
+                    result.rank == .none ? DesignSystem.divider : DesignSystem.accent.opacity(0.3),
+                    lineWidth: 1
                 )
-            }
-        }
-        .clipShape(RoundedRectangle(cornerRadius: 16))
-        .shadow(
-            color: result.rank == .none ? .clear : DesignSystem.gold.opacity(0.15),
-            radius: 12
         )
     }
 
@@ -301,5 +293,4 @@ struct ConfettiParticle: Identifiable {
         ),
         result: CheckResult(matchCount: 3, rank: .fifth, prizeAmount: 5000)
     )
-    .preferredColorScheme(.dark)
 }

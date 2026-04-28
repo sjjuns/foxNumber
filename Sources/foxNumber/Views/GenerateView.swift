@@ -11,82 +11,71 @@ struct GenerateView: View {
             DesignSystem.background.ignoresSafeArea()
 
             ScrollView {
-                VStack(spacing: 28) {
-                    // MARK: 회차 정보
-                    roundInfoSection
-
-                    Divider().background(DesignSystem.textSecondary.opacity(0.2))
-
-                    // MARK: 번호 볼
+                VStack(spacing: DesignSystem.Spacing.xl) {
+                    roundInfoCard
                     ballsSection
-
-                    Divider().background(DesignSystem.textSecondary.opacity(0.2))
-
-                    // MARK: 게임 수 선택
                     gameCountSection
-
-                    // MARK: 버튼
                     buttonSection
                 }
-                .padding(.horizontal, 20)
-                .padding(.top, 16)
+                .padding(.horizontal, DesignSystem.Spacing.md)
+                .padding(.top, DesignSystem.Spacing.md)
+                .padding(.bottom, 32)
             }
 
-            // MARK: 저장 토스트
             if showSavedToast {
                 VStack {
                     Spacer()
-                    toastView
-                        .padding(.bottom, 100)
+                    toastView.padding(.bottom, 100)
                 }
                 .transition(.move(edge: .bottom).combined(with: .opacity))
             }
         }
-        .navigationTitle("")
     }
 
-    // MARK: - 회차 정보
-    private var roundInfoSection: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 4) {
+    // MARK: - 회차 정보 카드
+    private var roundInfoCard: some View {
+        HStack(alignment: .top) {
+            VStack(alignment: .leading, spacing: DesignSystem.Spacing.xs) {
                 Text("제 \(vm.currentRound)회")
-                    .font(.title2.bold())
-                    .foregroundColor(DesignSystem.gold)
+                    .font(DesignSystem.Typography.title)
+                    .foregroundStyle(DesignSystem.textPrimary)
                 Text("\(vm.nextDrawDate) 추첨")
-                    .font(.caption)
-                    .foregroundColor(DesignSystem.textSecondary)
+                    .font(DesignSystem.Typography.caption)
+                    .foregroundStyle(DesignSystem.textSecondary)
             }
+
             Spacer()
-            VStack(alignment: .trailing, spacing: 4) {
+
+            VStack(alignment: .trailing, spacing: DesignSystem.Spacing.xs) {
                 Text("D-\(vm.daysUntilDraw)")
-                    .font(.title2.bold())
-                    .foregroundColor(DesignSystem.textPrimary)
+                    .font(DesignSystem.Typography.title)
+                    .foregroundStyle(DesignSystem.accent)
                 Text("추첨까지")
-                    .font(.caption)
-                    .foregroundColor(DesignSystem.textSecondary)
+                    .font(DesignSystem.Typography.caption)
+                    .foregroundStyle(DesignSystem.textSecondary)
             }
         }
-        .padding(.horizontal, 4)
+        .padding(DesignSystem.Spacing.md)
+        .background(DesignSystem.cardBackground)
+        .clipShape(RoundedRectangle(cornerRadius: DesignSystem.Radius.md))
+        .overlay(
+            RoundedRectangle(cornerRadius: DesignSystem.Radius.md)
+                .stroke(DesignSystem.divider, lineWidth: 1)
+        )
     }
 
     // MARK: - 번호 볼 영역
     private var ballsSection: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: DesignSystem.Spacing.lg) {
             if vm.generatedSets.isEmpty {
-                // 생성 전 빈 볼
-                HStack(spacing: 10) {
-                    ForEach(0..<6, id: \.self) { _ in
-                        EmptyBallView(size: 48)
-                    }
-                }
-                .frame(height: 56)
+                emptyBallsPlaceholder
             } else {
                 ForEach(Array(vm.generatedSets.enumerated()), id: \.offset) { setIndex, numbers in
-                    HStack(spacing: 8) {
+                    HStack(spacing: DesignSystem.Spacing.sm) {
                         Text("\(setIndex + 1)")
-                            .font(.caption.bold())
-                            .foregroundColor(DesignSystem.textSecondary)
-                            .frame(width: 16)
+                            .font(DesignSystem.Typography.micro)
+                            .foregroundStyle(DesignSystem.textTertiary)
+                            .frame(width: 14)
 
                         ForEach(numbers, id: \.self) { number in
                             if vm.isBallVisible(setIndex: setIndex, number: number) {
@@ -97,80 +86,96 @@ struct GenerateView: View {
                             }
                         }
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
         }
+        .padding(DesignSystem.Spacing.md)
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 8)
+        .background(DesignSystem.cardBackground)
+        .clipShape(RoundedRectangle(cornerRadius: DesignSystem.Radius.md))
+        .overlay(
+            RoundedRectangle(cornerRadius: DesignSystem.Radius.md)
+                .stroke(DesignSystem.divider, lineWidth: 1)
+        )
+    }
+
+    private var emptyBallsPlaceholder: some View {
+        HStack(spacing: DesignSystem.Spacing.sm) {
+            Text("1")
+                .font(DesignSystem.Typography.micro)
+                .foregroundStyle(DesignSystem.textTertiary)
+                .frame(width: 14)
+            ForEach(0..<6, id: \.self) { _ in
+                EmptyBallView(size: 44)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     // MARK: - 게임 수 선택
     private var gameCountSection: some View {
-        HStack(spacing: 0) {
+        VStack(alignment: .leading, spacing: DesignSystem.Spacing.sm) {
             Text("게임 수")
-                .font(.subheadline)
-                .foregroundColor(DesignSystem.textSecondary)
+                .font(DesignSystem.Typography.caption)
+                .foregroundStyle(DesignSystem.textSecondary)
 
-            Spacer()
-
-            HStack(spacing: 8) {
+            HStack(spacing: DesignSystem.Spacing.sm) {
                 ForEach(1...5, id: \.self) { count in
                     Button {
-                        withAnimation(.spring(response: 0.2)) {
-                            vm.gameCount = count
-                        }
+                        withAnimation(.spring(response: 0.2)) { vm.gameCount = count }
                     } label: {
                         Text("\(count)")
-                            .font(.subheadline.bold())
-                            .frame(width: 36, height: 36)
+                            .font(DesignSystem.Typography.headline)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 44)
                             .background(
                                 vm.gameCount == count
-                                ? DesignSystem.gold
+                                ? DesignSystem.accent
                                 : DesignSystem.cardBackground
                             )
-                            .foregroundColor(
+                            .foregroundStyle(
                                 vm.gameCount == count
-                                ? DesignSystem.background
+                                ? Color.white
                                 : DesignSystem.textSecondary
                             )
-                            .clipShape(Circle())
+                            .clipShape(RoundedRectangle(cornerRadius: DesignSystem.Radius.sm))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: DesignSystem.Radius.sm)
+                                    .stroke(
+                                        vm.gameCount == count ? Color.clear : DesignSystem.divider,
+                                        lineWidth: 1
+                                    )
+                            )
                     }
                 }
             }
         }
-        .padding(.horizontal, 4)
     }
 
     // MARK: - 버튼
     private var buttonSection: some View {
-        VStack(spacing: 12) {
-            // 생성하기
+        VStack(spacing: DesignSystem.Spacing.sm) {
             Button {
                 Task { await vm.generate() }
             } label: {
-                HStack {
+                HStack(spacing: DesignSystem.Spacing.sm) {
                     if vm.isAnimating {
                         ProgressView()
-                            .tint(DesignSystem.background)
+                            .tint(.white)
                             .scaleEffect(0.8)
                     }
                     Text(vm.isAnimating ? "생성 중..." : "생성하기")
-                        .font(.headline.bold())
+                        .font(DesignSystem.Typography.headline)
                 }
                 .frame(maxWidth: .infinity)
-                .frame(height: 52)
-                .background(
-                    vm.isAnimating
-                    ? DesignSystem.gold.opacity(0.6)
-                    : DesignSystem.gold
-                )
-                .foregroundColor(DesignSystem.background)
-                .clipShape(RoundedRectangle(cornerRadius: 14))
-                .shadow(color: DesignSystem.gold.opacity(0.4), radius: 12, y: 4)
+                .frame(height: 56)
+                .background(vm.isAnimating ? DesignSystem.accent.opacity(0.7) : DesignSystem.accent)
+                .foregroundStyle(Color.white)
+                .clipShape(RoundedRectangle(cornerRadius: DesignSystem.Radius.md))
             }
             .disabled(vm.isAnimating)
 
-            // 저장하기
             Button {
                 vm.save(context: context)
                 withAnimation(.spring()) { showSavedToast = true }
@@ -178,9 +183,28 @@ struct GenerateView: View {
                     withAnimation { showSavedToast = false }
                 }
             } label: {
-                Text("💾 저장하기")
-                    .font(.subheadline.bold())
-                    .foregroundColor(vm.generatedSets.isEmpty ? DesignSystem.textSecondary : DesignSystem.gold)
+                Text("저장하기")
+                    .font(DesignSystem.Typography.body)
+                    .foregroundStyle(
+                        vm.generatedSets.isEmpty
+                        ? DesignSystem.textTertiary
+                        : DesignSystem.accent
+                    )
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 44)
+                    .background(
+                        vm.generatedSets.isEmpty
+                        ? DesignSystem.cardBackground
+                        : DesignSystem.accent.opacity(0.1)
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: DesignSystem.Radius.md))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: DesignSystem.Radius.md)
+                            .stroke(
+                                vm.generatedSets.isEmpty ? DesignSystem.divider : DesignSystem.accent.opacity(0.3),
+                                lineWidth: 1
+                            )
+                    )
             }
             .disabled(vm.generatedSets.isEmpty || vm.isAnimating)
         }
@@ -188,18 +212,19 @@ struct GenerateView: View {
 
     // MARK: - 저장 토스트
     private var toastView: some View {
-        HStack(spacing: 8) {
+        HStack(spacing: DesignSystem.Spacing.sm) {
             Image(systemName: "checkmark.circle.fill")
-                .foregroundColor(DesignSystem.gold)
+                .foregroundStyle(DesignSystem.accent)
             Text("번호가 저장되었습니다")
-                .font(.subheadline.bold())
-                .foregroundColor(DesignSystem.textPrimary)
+                .font(DesignSystem.Typography.caption)
+                .foregroundStyle(DesignSystem.textPrimary)
         }
-        .padding(.horizontal, 20)
-        .padding(.vertical, 12)
+        .padding(.horizontal, DesignSystem.Spacing.md)
+        .padding(.vertical, DesignSystem.Spacing.sm + 2)
         .background(DesignSystem.cardBackground)
         .clipShape(Capsule())
-        .shadow(color: .black.opacity(0.3), radius: 8)
+        .overlay(Capsule().stroke(DesignSystem.divider, lineWidth: 1))
+        .shadow(color: .black.opacity(0.12), radius: 12, y: 4)
     }
 }
 
@@ -208,5 +233,4 @@ struct GenerateView: View {
         GenerateView()
     }
     .modelContainer(for: LottoNumber.self, inMemory: true)
-    .preferredColorScheme(.dark)
 }
